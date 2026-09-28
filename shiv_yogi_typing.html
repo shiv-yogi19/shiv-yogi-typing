@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHIV YOGI TYPING</title>
+<style>
+/* ===== VARIABLES ===== */
+:root{--bg:#050712;--a1:#765CFF;--a2:#20C9FF;--a3:#FF4FA3;--a4:#72F6D4;--blur:22px;--op:.08;--fs:30px;--ls:.5px;--spd:1}
+*{box-sizing:border-box;margin:0}
+body{background:#050712;color:#eef;font-family:-apple-system,"Segoe UI",Inter,system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+body.reduced *{animation-duration:.01s!important;transition-duration:.01s!important}
+#bg{position:fixed;inset:0;z-index:0}
+#app{position:relative;z-index:1;min-height:100vh}
+/* ===== GLASS ===== */
+.glass{background:linear-gradient(135deg,rgba(255,255,255,calc(var(--op) + .05)),rgba(255,255,255,var(--op)));backdrop-filter:blur(var(--blur)) saturate(180%);-webkit-backdrop-filter:blur(var(--blur)) saturate(180%);border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 0 30px rgba(118,92,255,.08),0 20px 60px rgba(0,0,0,.4);border-radius:22px;position:relative;overflow:hidden}
+.glass::after{content:"";position:absolute;inset:0;background:radial-gradient(300px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.14),transparent 60%);pointer-events:none;opacity:0;transition:.3s}
+.glass:hover::after{opacity:1}
+.btn{font:600 15px inherit;font-family:inherit;color:#fff;padding:12px 22px;border-radius:14px;border:1px solid rgba(255,255,255,.25);background:linear-gradient(135deg,rgba(118,92,255,.5),rgba(32,201,255,.35));cursor:pointer;position:relative;overflow:hidden;transition:.25s;margin:4px}
+.btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(118,92,255,.5)}.btn:active{transform:scale(.95)}
+.btn.sec{background:rgba(255,255,255,.08)}
+.btn:focus-visible,input:focus-visible,.card:focus-visible{outline:2px solid var(--a2);outline-offset:2px}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.5);transform:scale(0);animation:rip .6s linear;pointer-events:none}
+@keyframes rip{to{transform:scale(4);opacity:0}}
+input,select,textarea{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:12px;padding:12px 16px;font:16px inherit;font-family:inherit;transition:.3s}
+select option{background:#0A0D1C}
+input:focus,textarea:focus{box-shadow:0 0 0 3px rgba(32,201,255,.35),0 0 30px rgba(118,92,255,.5);outline:0}
+/* ===== SCREENS ===== */
+.screen{display:none;padding:24px;max-width:1200px;margin:auto;animation:in .6s cubic-bezier(.2,.8,.2,1)}
+.screen.on{display:block}
+.full{min-height:100vh;display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center}
+.full.on{display:flex}
+@keyframes in{from{opacity:0;transform:translateY(24px) scale(.97);filter:blur(12px)}}
+h1.big{font-size:clamp(34px,6vw,72px);font-weight:800;background:linear-gradient(90deg,var(--a2),var(--a1),var(--a3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lt{display:inline-block;animation:lt .8s both}
+@keyframes lt{from{opacity:0;filter:blur(14px);transform:scale(1.8) translateY(20px)}}
+.cb{font-size:clamp(28px,5vw,64px);font-weight:800;animation:cb 3s both;text-shadow:0 0 40px var(--a1);background:linear-gradient(110deg,#fff 40%,var(--a2) 50%,#fff 60%);background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes cb{0%{opacity:0;filter:blur(20px);letter-spacing:.6em;transform:scale(.8);background-position:200%}40%{opacity:1;filter:none;letter-spacing:.08em;transform:scale(1)}100%{background-position:-100%;opacity:1;letter-spacing:.1em}}
+.pad{padding:26px}.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+nav{position:sticky;top:12px;z-index:5;display:flex;flex-wrap:wrap;gap:6px;padding:8px;margin:12px auto;max-width:1100px;justify-content:center}
+nav .btn{margin:0;background:transparent;border-color:transparent;padding:9px 15px}nav .btn.act{background:rgba(118,92,255,.45);border-color:rgba(255,255,255,.3)}
+.card{padding:18px;cursor:pointer;transition:.3s;text-align:left}.card:hover{transform:translateY(-6px) scale(1.02);border-color:var(--a2)}
+.card.sel{border-color:var(--a4);box-shadow:0 0 40px rgba(114,246,212,.45)}.card.sel::before{content:"✓";position:absolute;top:10px;right:14px;color:var(--a4);font-weight:800}
+.tag{font-size:12px;opacity:.75;margin-right:8px}.stat{padding:16px;text-align:center}.stat b{display:block;font-size:30px;color:var(--a2)}.stat span{font-size:12px;opacity:.7;letter-spacing:.1em;text-transform:uppercase}
+.pill{padding:8px 16px;border-radius:99px;font-size:13px;min-width:90px;text-align:center}.pill b{color:var(--a4);font-size:17px;display:inline-block}
+.bump{animation:bump .3s}@keyframes bump{50%{transform:translateY(-4px);text-shadow:0 0 14px var(--a2)}}
+.bar{height:10px;background:rgba(255,255,255,.1);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a1),var(--a2),var(--a4));transition:width .5s;border-radius:9px}
+/* ===== TYPING ===== */
+#txt{font-size:var(--fs);letter-spacing:var(--ls);line-height:1.9;font-family:Georgia,"Times New Roman",serif;padding:36px;max-height:52vh;overflow:hidden;position:relative;transition:filter .4s}
+#txt span{display:inline-block;white-space:pre;opacity:.85;transition:opacity .4s}
+#txt span.cur{background:rgba(118,92,255,.35);border-radius:8px;box-shadow:0 0 0 2px var(--a2),0 0 22px var(--a2);animation:pulse 1.2s infinite;opacity:1;color:#fff}
+@keyframes pulse{50%{box-shadow:0 0 0 2px var(--a1),0 0 34px var(--a1);transform:scale(1.08)}}
+#txt span.ok{animation:ok .5s forwards;pointer-events:none}
+@keyframes ok{0%{color:var(--a4);text-shadow:0 0 24px var(--a4);transform:scale(1.4)}100%{opacity:0;filter:blur(8px);transform:translateY(-22px) scale(.4) rotate(-10deg)}}
+#txt span.bad{animation:bad .35s;background:rgba(255,60,80,.45);box-shadow:0 0 26px #f35}
+@keyframes bad{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+#txt.focus span:not(.cur){opacity:.35}
+#txt.paused{filter:blur(14px)}
+.ov{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:rgba(5,7,18,.5);backdrop-filter:blur(10px);font-size:90px;font-weight:800;flex-direction:column}.ov.on{display:flex}
+.cd{animation:cd .9s both;background:linear-gradient(var(--a2),var(--a3));-webkit-background-clip:text;background-clip:text;color:transparent}@keyframes cd{from{transform:scale(2.5);opacity:0}to{transform:scale(1)}}
+body.fm .hidefm{display:none!important}body.fm #bgdim{opacity:.6}#bgdim{position:fixed;inset:0;background:#000;opacity:0;z-index:0;pointer-events:none;transition:.5s}
+#toasts{position:fixed;top:16px;right:16px;z-index:50;display:flex;flex-direction:column;gap:8px}.toast{padding:14px 20px;animation:in .4s;border-radius:16px}
+canvas.ch{width:100%;height:170px;display:block}
+.lock{filter:grayscale(1);opacity:.45}.ach{padding:14px;text-align:center}.ach div{font-size:34px}
+.wpmb{padding:14px 6px;text-align:center;font-size:20px;font-weight:700;cursor:pointer;transition:.25s}.wpmb:hover{transform:translateY(-4px);box-shadow:0 0 24px var(--a2)}.wpmb.sel{border-color:var(--a4);background:rgba(114,246,212,.2)}
+#confetti{position:fixed;inset:0;z-index:30;pointer-events:none}
+@media(max-width:700px){#mob{display:block!important}}
+#mob{display:none;padding:10px;text-align:center;font-size:13px}
+</style></head><body>
+<canvas id="bg"></canvas><div id="bgdim"></div><canvas id="confetti"></canvas><div id="toasts" aria-live="polite"></div>
+<div id="app">
+<!-- INTRO -->
+<section class="full on" id="s-name"><div class="glass pad" style="width:min(560px,92vw);padding:48px"><h1 class="big">SHIV YOGI TYPING</h1><p style="margin:18px 0 8px;font-size:22px">What's your name?</p><input id="nm" maxlength="24" placeholder="Enter your name" aria-label="Your name" style="width:100%;text-align:center;font-size:20px"><p id="nerr" style="color:#ff7a9c;min-height:22px;font-size:13px"></p><button class="btn" id="go">Continue →</button></div></section>
+<section class="full" id="s-wel"><h1 class="big" id="welt"></h1></section>
+<section class="full" id="s-cre"><div class="cb">Created By Shiv Yogi</div></section>
+<!-- MAIN -->
+<div id="main" style="display:none"><div id="mob" class="glass">📱 Physical keyboard typing works best on a computer.</div>
+<nav class="glass hidefm" id="nav"></nav>
+<section class="screen" id="s-home"></section>
+<section class="screen" id="s-learn"></section>
+<section class="screen" id="s-practice"></section>
+<section class="screen" id="s-wpm"></section>
+<section class="screen" id="s-type"></section>
+<section class="screen" id="s-result"></section>
+<section class="screen" id="s-progress"></section>
+<section class="screen" id="s-ach"></section>
+<section class="screen" id="s-daily"></section>
+<section class="screen" id="s-settings"></section>
+</div></div>
+<div class="ov" id="ov"></div>
+<script>
+"use strict";
+/* ===== STORAGE (safe) ===== */
+const mem={};const st={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return k in mem?mem[k]:d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){mem[k]=v}}};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let D=st.get("syt",null)||{name:"",tests:[],xp:0,ach:[],lessons:[],days:[],keys:{},daily:"",set:{blur:22,op:8,anim:true,part:true,orbs:true,par:true,spd:1,bright:1,fs:30,ls:.5,reduced:false,snd:true,vol:.4,theme:"Liquid Purple"}};
+const save=()=>st.set("syt",D);
+/* ===== DATA: paragraphs (extend freely) ===== */
+const P=[
+["🐕","Hungry Dog","Moral Stories","Easy","A hungry dog walked through the village looking for food. He found a big bone near the butcher shop and grabbed it with joy. He ran toward his home to eat in peace. On the way he crossed a small wooden bridge over a clear river. He looked down and saw another dog with a bigger bone. Greedy and foolish, he barked to snatch it. The moment he opened his mouth, his own bone fell into the water and sank away. The other dog was only his reflection. The hungry dog went home with nothing. He learned that greed makes us lose what we already have, and that being thankful is better than wanting more."],
+["🐦","Thirsty Crow","Moral Stories","Easy","It was a hot summer day and a crow was flying in search of water. He was so thirsty that he could hardly move his wings. At last he saw a pot lying under a tree. He hurried down and peeped inside, but there was very little water at the bottom. His beak could not reach it. The crow did not give up. He looked around and found many small stones. One by one he picked them up and dropped them into the pot. Slowly the water rose to the top. The clever crow drank happily and flew away. Where there is a will, there is always a way."],
+["👵","Greedy Woman","Moral Stories","Medium","There once lived a woman who owned a hen that laid one egg every morning. The woman sold the eggs and lived comfortably, yet she wished to be rich at once. She thought the hen must be full of eggs inside. One evening she cut the hen open to take all the eggs together. To her sorrow, she found nothing at all, and the hen was dead. She had lost her daily income because of her impatience. She sat and wept for many days. Wise people say that patience brings a steady reward, while greed destroys good fortune in a single moment of foolishness."],
+["👨‍🌾","Clever Farmer","Moral Stories","Medium","A farmer had three sons who quarreled every day. He tried to advise them but they never listened. One morning he asked them to bring a bundle of sticks. He gave the bundle to each son and asked him to break it. None of them could. Then the farmer untied the bundle and gave each son a single stick. They broke the sticks easily. The farmer smiled and said that united they were strong, but divided they were weak. From that day the brothers worked together, and their farm grew rich and green under the warm sun."],
+["🪓","Honest Woodcutter","Moral Stories","Medium","A poor woodcutter was cutting a tree near a deep river when his axe slipped and fell into the water. He sat on the bank and cried because it was his only tool. A kind river spirit appeared and showed him a golden axe. The woodcutter said it was not his. The spirit showed a silver axe, and again he refused. Finally the spirit held up his old iron axe and he thanked her gladly. Pleased with his honesty, the spirit gave him all three axes. Honesty is always rewarded, even when nobody is watching."],
+["🦁","Lion and Mouse","Moral Stories","Easy","A lion was sleeping in the forest when a little mouse ran over his face. The lion woke up angry and caught the mouse in his huge paw. The mouse begged for mercy and promised to help him one day. The lion laughed but let him go. Some days later hunters trapped the lion in a strong net. He roared in fear. The mouse heard him and rushed to the spot. With his sharp teeth he cut the ropes and set the lion free. No kindness is ever wasted, and even the smallest friend can be a great help."],
+["🦊","Fox and Grapes","Moral Stories","Easy","One hot afternoon a fox saw a bunch of ripe grapes hanging from a high vine. His mouth watered at the sight. He jumped as high as he could but could not reach them. He tried again and again, and each time he fell down tired. At last he turned away with his nose in the air. He said that the grapes were surely sour and not worth eating. It is easy to hate what we cannot have. A wise person accepts failure honestly and tries again with better plans instead of blaming things around him."],
+["🐢","Hare and Tortoise","Moral Stories","Medium","A hare laughed at a tortoise for walking so slowly. The tortoise smiled and challenged him to a race. The hare agreed, sure that he would win with ease. The race began and the hare ran far ahead. Seeing the tortoise far behind, he lay under a tree to rest and soon fell asleep. The tortoise kept walking, slow and steady, without stopping. When the hare woke up, the tortoise was almost at the finish line. He ran fast but it was too late. Slow and steady wins the race, and pride often leads to failure."],
+["🐺","Boy Who Cried Wolf","Moral Stories","Medium","A shepherd boy looked after sheep on a green hill near his village. Feeling bored, he shouted that a wolf was coming. The villagers ran up with sticks, but found no wolf. The boy laughed at them. He played the same trick the next day. Then one evening a real wolf came and attacked the flock. The boy screamed for help, but nobody believed him this time. The wolf scattered the sheep, and the boy wept in shame. Liars are not believed even when they speak the truth, so always be honest with people."],
+["🐜","Ant and Grasshopper","Moral Stories","Easy","All summer long a grasshopper sang and played in the fields while a small ant worked hard carrying grain to her nest. The grasshopper laughed at her and asked her to join the fun. The ant replied that she was preparing for the winter. When winter arrived, snow covered the ground and the grasshopper had no food. Cold and hungry, he knocked at the ant's door and begged for help. The ant shared a little, but reminded him to work in time. Hard work today brings comfort tomorrow, and wise people always prepare early."],
+["🤝","Two Friends","Moral Stories","Medium","Two friends were walking through a forest when they saw a bear coming toward them. One friend quickly climbed a tree and left the other alone. The second friend knew that bears do not touch dead bodies, so he lay still on the ground and held his breath. The bear sniffed his ear and walked away. The friend in the tree came down and asked what the bear had whispered. He answered that the bear advised him never to trust a friend who leaves you in danger. A true friend stands beside you when troubles come."],
+["🥚","Golden Egg","Moral Stories","Hard","A poor farmer discovered that his goose laid a shining golden egg every single day. He sold each egg at the market and soon became a wealthy man with a fine house. But as his fortune grew, so did his impatience. He decided that the goose must hold a mountain of gold inside her body. Ignoring the warnings of his neighbors, he killed the goose and opened her, only to find that she was like any other bird. His steady source of wealth was gone forever. Contentment and patience protect our blessings, whereas greed leaves us empty-handed."],
+["🌾","Kind Farmer","Moral Stories","Easy","A kind farmer lived at the edge of a quiet village with his old mother and a brown cow. Every morning he shared his milk and vegetables with the poor families nearby. One stormy night a tired traveler knocked at his door. The farmer gave him hot food and a warm bed without asking any question. In the morning the traveler revealed that he was the king. He rewarded the farmer with land and gold. The farmer thanked him humbly and continued to help everyone. Kindness costs nothing, yet it returns to us in wonderful ways."],
+["🦊","Clever Fox","Moral Stories","Hard","A clever fox once fell into a deep well and could not climb out. Soon a thirsty goat came by and asked whether the water was sweet. The fox praised the water loudly and invited the goat to jump in. The goat leaped down without thinking and started to drink. The fox quickly stood on his horns and jumped to the top of the well. Then he calmly told the goat that a wise person looks before he leaps. The foolish goat was left behind in the dark water. Think carefully about the consequences before you follow anyone."],
+["🧙","The Wise Old Man","Moral Stories","Hard","In a small mountain village lived a wise old man whom everyone respected. A young man came to him and asked the secret of a happy life. The old man handed him a cup and filled it with tea until it overflowed. The young man cried out that the cup was already full. The old man replied that, like the cup, his mind was full of opinions and could not learn anything new. He advised him to empty his mind, listen with patience, and stay humble. Learning never ends, and the humble student becomes the greatest master."]
+].map((p,i)=>({id:i,ic:p[0],t:p[1],cat:p[2],dif:p[3],tx:p[4],w:p[4].split(" ").length}));
+const LESSONS=[["Home Row","asdf jkl; asdf jkl; fjdk sla; jfjf dkdk slsl a;a; fdsa jkl; dad sad lad fad ask"],["Left Hand","qwert asdfg zxcvb tree wave cart best dress fast grab cave"],["Right Hand","yuiop hjkl nm; pool milk pink hilly jump look noon hip"],["Top Row","qwertyuiop quiet power write tower pretty youth report opera"],["Bottom Row","zxcvbnm, zoom next vine calm bank zinc move exam cabin"],["Numbers","1234567890 2468 1357 100 250 7890 3141 5926 1024 2026"],["Symbols","!@#$ %^&* () -_=+ [] {} ; : ' \" , . / ? @home #tag $50 50% a&b"],["Capital Letters","The Quick Brown Fox Jumps Over Lazy Dogs In New Delhi And Jaipur"],["Words","time people water river mountain garden thought friend simple market bridge silver"],["Sentences","The sun rises in the east. Birds sing early in the morning. We learn by practice."],["Paragraphs",P[1].tx],["Speed Practice","the quick brown fox jumps over the lazy dog while we practice speed with steady focus and rhythm every single day"]];
+const ACH=[["First Test","🎯","Complete 1 test",d=>d.tests.length>=1],["10 Tests","🔟","Complete 10 tests",d=>d.tests.length>=10],["50 Tests","🏅","Complete 50 tests",d=>d.tests.length>=50],["100 Tests","💯","Complete 100 tests",d=>d.tests.length>=100]]
+.concat([30,50,75,100,120,150,200,250,300,320].map(w=>[w+" WPM","⚡","Reach "+w+" net WPM",d=>d.tests.some(t=>t.net>=w)]))
+.concat([95,98,100].map(a=>[a+"% Accuracy","🎯","Finish with "+a+"% accuracy",d=>d.tests.some(t=>t.acc>=a&&t.chars>30)]))
+.concat([["No Errors","✨","Finish with zero errors",d=>d.tests.some(t=>t.err==0&&t.chars>30)],["5 Minute Test","⏱️","Type for 5 minutes",d=>d.tests.some(t=>t.time>=300)],["10 Minute Test","⏳","Type for 10 minutes",d=>d.tests.some(t=>t.time>=600)],["Daily Streak","🔥","Keep a 2 day streak",d=>streak()>=2],["7 Day Streak","🔥","Keep a 7 day streak",d=>streak()>=7],["30 Day Streak","🌋","Keep a 30 day streak",d=>streak()>=30],["Speed Master","🚀","Reach 100 WPM",d=>d.tests.some(t=>t.net>=100)],["Accuracy Master","🏹","Reach 98% with 40+ WPM",d=>d.tests.some(t=>t.acc>=98&&t.net>=40)],["Typing Master","👑","Unlock 20 achievements",d=>d.ach.length>=20]]);
+/* ===== HELPERS ===== */
+const day=(t=Date.now())=>new Date(t-new Date(t).getTimezoneOffset()*6e4).toISOString().slice(0,10);
+function streak(){let s=0,t=Date.now();const set=new Set(D.days);if(!set.has(day(t)))t-=864e5;while(set.has(day(t))){s++;t-=864e5}return s}
+const lvl=()=>{let l=1,x=D.xp,n=500;while(x>=n){x-=n;l++;n=500+l*100}return{l,x,n}};
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const fmt=s=>Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");
+function toast(m){const e=document.createElement("div");e.className="toast glass";e.textContent=m;$("#toasts").appendChild(e);setTimeout(()=>{e.style.transition=".4s";e.style.opacity=0;e.style.transform="translateX(40px)";setTimeout(()=>e.remove(),400)},3000)}
+function count(el,to,dec=0){const f=+el.dataset.v||0,t0=performance.now();el.dataset.v=to;(function s(n){const p=Math.min(1,(n-t0)/800);el.textContent=(f+(to-f)*(1-Math.pow(1-p,3))).toFixed(dec);if(p<1)requestAnimationFrame(s)})(t0)}
+/* ===== SOUND (Web Audio) ===== */
+let AC;function beep(f,d=.08,type="sine",v=1){if(!D.set.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.value=f;g.gain.value=D.set.vol*.25*v;g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+const SND={ok:()=>beep(700+Math.random()*80,.05,"sine",.5),bad:()=>beep(150,.15,"sawtooth",.6),cd:()=>beep(520,.15),go:()=>beep(880,.3,"triangle"),pause:()=>beep(330,.2),done:()=>[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.25,"triangle"),i*120)),ach:()=>[784,988,1319].forEach((f,i)=>setTimeout(()=>beep(f,.2,"triangle"),i*100))};
+/* ===== BACKGROUND (canvas: aurora blobs, orbs, particles, stars, mouse) ===== */
+const cv=$("#bg"),cx=cv.getContext("2d");let W,H,mx=.5,my=.5,pts=[],blobs=[];
+const COL=["118,92,255","32,201,255","255,79,163","114,246,212"];
+function rs(){W=cv.width=innerWidth/2;H=cv.height=innerHeight/2;cv.style.width="100%";cv.style.height="100%";initP()}
+function initP(){const n=D.set.part?Math.round(60*(D.set.pd||1)):0;pts=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.3,vx:(Math.random()-.5)*.2,vy:-Math.random()*.3-.05,a:Math.random()}));blobs=Array.from({length:6},(_,i)=>({x:Math.random()*W,y:Math.random()*H,r:120+Math.random()*120,c:COL[i%4],p:Math.random()*6,s:.0004+Math.random()*.0006}))}
+addEventListener("resize",rs);addEventListener("mousemove",e=>{mx=e.clientX/innerWidth;my=e.clientY/innerHeight;document.querySelectorAll(".glass:hover,.btn:hover").forEach(g=>{const r=g.getBoundingClientRect();g.style.setProperty("--mx",(e.clientX-r.left)+"px");g.style.setProperty("--my",(e.clientY-r.top)+"px")})});
+let T=0;function frame(){requestAnimationFrame(frame);const s=D.set;cx.fillStyle="#050712";cx.fillRect(0,0,W,H);if(s.wall===false)return;T+=16*s.spd;cx.globalAlpha=s.bright;
+if(s.aurora!==false){cx.globalCompositeOperation="lighter";blobs.forEach(b=>{const px=s.par?(mx-.5)*40*(b.r/100):0,py=s.par?(my-.5)*40*(b.r/100):0,x=b.x+Math.sin(T*b.s+b.p)*W*.25+px,y=b.y+Math.cos(T*b.s*1.3+b.p)*H*.25+py;const g=cx.createRadialGradient(x,y,0,x,y,b.r*1.6);g.addColorStop(0,`rgba(${b.c},.35)`);g.addColorStop(1,`rgba(${b.c},0)`);cx.fillStyle=g;cx.fillRect(x-b.r*2,y-b.r*2,b.r*4,b.r*4)});
+if(s.orbs){for(let i=0;i<4;i++){const x=(Math.sin(T*.0003+i*2)*.4+.5)*W,y=(Math.cos(T*.0004+i*3)*.4+.5)*H,g=cx.createRadialGradient(x,y,0,x,y,40);g.addColorStop(0,`rgba(${COL[i]},.5)`);g.addColorStop(1,`rgba(${COL[i]},0)`);cx.fillStyle=g;cx.fillRect(x-40,y-40,80,80)}}cx.globalCompositeOperation="source-over"}
+cx.fillStyle="#fff";pts.forEach(p=>{p.x+=p.vx*s.spd;p.y+=p.vy*s.spd;if(p.y<0){p.y=H;p.x=Math.random()*W}cx.globalAlpha=(.3+.5*Math.abs(Math.sin(T*.002+p.a*9)))*s.bright;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()});cx.globalAlpha=1}
+/* ===== CONFETTI ===== */
+function confetti(){const c=$("#confetti"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const a=Array.from({length:140},()=>({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*16,vy:-Math.random()*16-4,c:COL[Math.random()*4|0],r:Math.random()*6+3,l:1}));(function f(){x.clearRect(0,0,c.width,c.height);let alive=0;a.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.l-=.008;if(p.l>0){alive++;x.fillStyle=`rgba(${p.c},${p.l})`;x.fillRect(p.x,p.y,p.r,p.r*1.5)}});if(alive)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
+/* ===== THEMES / SETTINGS APPLY ===== */
+const THEMES={"Liquid Purple":["#765CFF","#20C9FF","#FF4FA3","#72F6D4"],"Liquid Cyan":["#20C9FF","#765CFF","#72F6D4","#FF4FA3"],"Liquid Pink":["#FF4FA3","#765CFF","#20C9FF","#72F6D4"],"Midnight":["#4a5bd8","#2a7fbf","#6b4fb0","#4fb0a0"],"Aurora":["#72F6D4","#765CFF","#20C9FF","#FF4FA3"],"Galaxy":["#8a4fff","#ff4fa3","#4f6bff","#20C9FF"],"Ocean":["#20C9FF","#2a5cff","#72F6D4","#765CFF"],"Neon":["#39ff14","#ff00e5","#00e5ff","#ffee00"],"Minimal Dark":["#9aa4c7","#7d88b0","#aab4d8","#c5cdf0"]};
+function apply(){const s=D.set,r=document.documentElement.style,t=THEMES[s.theme]||THEMES["Liquid Purple"];r.setProperty("--blur",s.blur+"px");r.setProperty("--op",s.op/100);r.setProperty("--fs",s.fs+"px");r.setProperty("--ls",s.ls+"px");["a1","a2","a3","a4"].forEach((k,i)=>r.setProperty("--"+k,t[i]));document.body.classList.toggle("reduced",!!s.reduced);
+const rgb=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)).join(",");COL.splice(0,4,...t.map(rgb));blobs.forEach((b,i)=>b.c=COL[i%4])}
+/* ===== NAVIGATION ===== */
+const NAV=[["home","Home"],["learn","Learn"],["practice","Practice"],["tests","Tests"],["progress","Progress"],["ach","Achievements"],["daily","Daily Challenge"],["settings","Settings"]];
+let cur="";function go(id){if(id==="tests")id="practice";cur=id;$$(".screen").forEach(s=>s.classList.toggle("on",s.id==="s-"+id));$$("#nav .btn").forEach(b=>b.classList.toggle("act",b.dataset.id===id||(id==="practice"&&b.dataset.id==="tests")));const R={home,learn,practice,wpm,progress,ach,daily,settings,result:()=>{}}[id];R&&R();scrollTo(0,0)}
+function buildNav(){$("#nav").innerHTML=NAV.map(n=>`<button class="btn" data-id="${n[0]}">${n[1]}</button>`).join("");$$("#nav .btn").forEach(b=>b.onclick=()=>{if(sess&&sess.run)pause();go(b.dataset.id)})}
+document.addEventListener("click",e=>{const b=e.target.closest(".btn");if(!b)return;const r=b.getBoundingClientRect(),d=document.createElement("span");d.className="rip";const z=Math.max(r.width,r.height);d.style.cssText=`width:${z}px;height:${z}px;left:${e.clientX-r.left-z/2}px;top:${e.clientY-r.top-z/2}px`;b.appendChild(d);setTimeout(()=>d.remove(),600)});
+/* ===== INTRO FLOW ===== */
+function intro(){$("#s-name").classList.remove("on");const w=$("#s-wel");w.classList.add("on");$("#welt").innerHTML=("Welcome, "+D.name+" 👋").split("").map((c,i)=>`<span class="lt" style="animation-delay:${i*60}ms">${c===" "?"&nbsp;":c.replace("<","&lt;")}</span>`).join("");setTimeout(()=>{w.classList.remove("on");$("#s-cre").classList.add("on");setTimeout(()=>{$("#s-cre").classList.remove("on");start()},3300)},2800+D.name.length*60)}
+function start(){$("#main").style.display="block";buildNav();go("practice")}
+function nameOk(){const v=$("#nm").value.trim();if(v.length<2||!/[\p{L}]/u.test(v)){$("#nerr").textContent="Please enter a valid name (at least 2 letters).";return}D.name=v.replace(/[<>]/g,"");save();intro()}
+/* ===== HOME ===== */
+function home(){const L=lvl(),b=D.tests.map(t=>t.net),a=D.tests.map(t=>t.acc),r=D.tests.slice(-5).reverse();
+$("#s-home").innerHTML=`<h1 class="big">Welcome ${D.name}</h1><p style="opacity:.7;margin:6px 0 18px">Your typing laboratory</p>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div class="glass stat"><b>LV ${L.l}</b><span>${L.x}/${L.n} XP</span><div class="bar" style="margin-top:8px"><i style="width:${L.x/L.n*100}%"></i></div></div><div class="glass stat"><b>🔥 ${streak()}</b><span>Day streak</span></div><div class="glass stat"><b>${Math.max(0,...b).toFixed(0)}</b><span>Best WPM</span></div><div class="glass stat"><b>${avg(b).toFixed(0)}</b><span>Avg WPM</span></div><div class="glass stat"><b>${avg(a).toFixed(0)}%</b><span>Accuracy</span></div><div class="glass stat"><b>${D.tests.length}</b><span>Tests</span></div></div>
+<div class="row" style="margin:18px 0"><button class="btn" onclick="go('practice')">▶ Quick Start</button><button class="btn sec" onclick="randomP()">🎲 Random Practice</button><button class="btn sec" onclick="go('learn')">Continue Learning</button><button class="btn sec" onclick="go('daily')">Daily Challenge</button></div>
+<div class="glass pad"><h3>Recent Results</h3>${r.length?r.map(t=>`<p style="margin:8px 0">${t.title} — <b style="color:var(--a2)">${t.net.toFixed(1)} WPM</b> · ${t.acc.toFixed(1)}% · ${new Date(t.at).toLocaleDateString()}</p>`).join(""):"<p style='opacity:.6;margin-top:8px'>No tests yet. Start one!</p>"}</div>`}
+/* ===== PRACTICE (paragraph selection) ===== */
+let sel=null,q="",fc="All",fd="All";
+function practice(){$("#s-practice").innerHTML=`<h1 class="big">Select Paragraph</h1><div class="row glass pad" style="margin:16px 0"><input id="q" placeholder="🔍 Search paragraph" aria-label="Search" value="${q}"><select id="fc" aria-label="Category">${["All","Moral Stories","Easy English","Medium English","Hard English","Long Practice","Short Practice","Daily Practice","Random"].map(c=>`<option ${c===fc?"selected":""}>${c}</option>`).join("")}</select><select id="fd" aria-label="Difficulty">${["All","Easy","Medium","Hard"].map(c=>`<option ${c===fd?"selected":""}>${c}</option>`).join("")}</select><button class="btn" onclick="randomP()">🎲 Random</button><button class="btn sec" onclick="custom()">✍️ Custom Text</button></div><div class="grid" id="pg"></div>`;
+$("#q").oninput=e=>{q=e.target.value;pg()};$("#fc").onchange=e=>{fc=e.target.value;pg()};$("#fd").onchange=e=>{fd=e.target.value;pg()};pg()}
+function pg(){const cat=p=>fc==="All"||fc===p.cat||(fc==="Easy English"&&p.dif==="Easy")||(fc==="Medium English"&&p.dif==="Medium")||(fc==="Hard English"&&p.dif==="Hard")||(fc==="Long Practice"&&p.w>85)||(fc==="Short Practice"&&p.w<=85)||fc==="Daily Practice"||fc==="Random";
+const l=P.filter(p=>cat(p)&&(fd==="All"||p.dif===fd)&&p.t.toLowerCase().includes(q.toLowerCase()));
+$("#pg").innerHTML=l.map(p=>`<div class="glass card ${sel&&sel.id===p.id?"sel":""}" tabindex="0" role="button" data-i="${p.id}"><div style="font-size:40px">${p.ic}</div><h3>${p.t}</h3><p style="opacity:.7;font-size:13px;margin:6px 0">${p.tx.slice(0,60)}…</p><span class="tag">📊 ${p.dif}</span><span class="tag">📝 ${p.w} words</span><span class="tag">⏱ ~${Math.ceil(p.w/40)} min</span><br><span class="tag" style="color:var(--a4)">${p.tx.length>500?"20+ Lines":"Practice"}</span></div>`).join("")||"<p>No paragraphs match.</p>";
+$$("#pg .card").forEach(c=>{const f=()=>{sel=P[c.dataset.i];pg();setTimeout(()=>go("wpm"),350)};c.onclick=f;c.onkeydown=e=>{if(e.key==="Enter")f()}})}
+function randomP(){sel=P[Math.random()*P.length|0];toast("Random: "+sel.t);go("wpm")}
+function custom(){$("#s-practice").innerHTML=`<h1 class="big">Custom Practice</h1><div class="glass pad" style="margin-top:16px"><textarea id="ct" rows="8" style="width:100%" placeholder="Paste or type your own text here..."></textarea><div class="row" style="margin-top:12px"><button class="btn" id="cgo">Continue →</button><button class="btn sec" onclick="go('practice')">Back</button></div></div>`;$("#cgo").onclick=()=>{const t=$("#ct").value.replace(/\s+/g," ").trim();if(t.length<10){toast("Please enter at least 10 characters");return}sel={id:-1,ic:"✍️",t:"Custom Text",dif:"Custom",tx:t,w:t.split(" ").length};go("wpm")}}
+/* ===== WPM / MODE SELECTION ===== */
+let tw=60,tl=0,mode="Normal Practice";const PRE=[10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,220,240,260,280,300,320];
+const desc=w=>w<20?"Gentle beginner mode":w<40?"Learning pace":w<60?"Steady practice":w<90?"Solid speed":w<130?"Fast practice mode":w<200?"Professional speed":w<300?"Elite speed":"Superhuman challenge";
+function wpm(){if(!sel){go("practice");return}$("#s-wpm").innerHTML=`<h1 class="big">Select Your Target WPM</h1><p style="opacity:.75;margin:8px 0 16px">Target WPM is only a practice goal. Your actual WPM is calculated from your typing.</p>
+<div class="glass pad" style="text-align:center;margin-bottom:16px"><span style="opacity:.6;letter-spacing:.2em;font-size:12px">TARGET SPEED</span><div style="font-size:64px;font-weight:800;color:var(--a2)"><span id="tv" data-v="0">${tw}</span> WPM</div><div id="td" style="opacity:.8">${desc(tw)}</div><input type="range" id="sl" min="5" max="500" value="${tw}" style="width:80%;margin-top:12px" aria-label="Target WPM slider"></div>
+<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(90px,1fr))">${PRE.map(w=>`<div class="glass wpmb ${w===tw?"sel":""}" data-w="${w}" tabindex="0">${w}</div>`).join("")}</div>
+<div class="row glass pad" style="margin:16px 0"><b>Custom WPM</b><input type="number" id="cw" min="1" max="1000" placeholder="e.g. 375" style="width:130px"><button class="btn sec" id="cwb">Set</button></div>
+<div class="row glass pad"><label>Mode <select id="md">${["Normal Practice","Timed Test","Endless Practice","Accuracy Mode","Speed Mode","Error-Free Mode","Random Challenge"].map(m=>`<option ${m===mode?"selected":""}>${m}</option>`).join("")}</select></label><label>Timer <select id="tm">${[[0,"No Timer"],[30,"30 sec"],[60,"60 sec"],[120,"2 min"],[180,"3 min"],[300,"5 min"],[600,"10 min"],[900,"15 min"],[-1,"Custom…"]].map(t=>`<option value="${t[0]}" ${t[0]===tl?"selected":""}>${t[1]}</option>`).join("")}</select></label><button class="btn" id="st" style="margin-left:auto;font-size:18px">▶ Start Typing</button></div>`;
+const set=w=>{w=Math.round(+w);if(!(w>=1&&w<=2000)){toast("Enter a valid WPM (1–2000)");return}tw=w;$("#sl").value=Math.min(w,500);count($("#tv"),w);$("#td").textContent=desc(w);$$(".wpmb").forEach(b=>b.classList.toggle("sel",+b.dataset.w===w));toast("Target WPM Updated: "+w)};
+count($("#tv"),tw);$$(".wpmb").forEach(b=>{b.onclick=()=>set(b.dataset.w);b.onkeydown=e=>e.key==="Enter"&&set(b.dataset.w)});$("#sl").oninput=e=>{tw=+e.target.value;$("#tv").textContent=tw;$("#td").textContent=desc(tw);$$(".wpmb").forEach(b=>b.classList.toggle("sel",+b.dataset.w===tw))};$("#cwb").onclick=()=>set($("#cw").value);
+$("#md").onchange=e=>{mode=e.target.value;if(mode==="Timed Test"&&!tl){tl=60;$("#tm").value=60}};$("#tm").onchange=e=>{let v=+e.target.value;if(v===-1){v=parseInt(prompt("Timer in seconds:","90"));if(!(v>0)){v=0;e.target.value=0}}tl=v};$("#st").onclick=()=>begin(sel.tx)}
+/* ===== TYPING ENGINE ===== */
+let sess=null;
+function begin(text,opts={}){text=text.replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"').replace(/\s+/g," ").trim();if(!text){toast("Nothing to type!");return}
+const rt=opts.rt||(mode==="Endless Practice"?text+" "+text:text);
+sess={text:rt,i:0,ok:0,bad:0,tot:0,t0:0,acc:0,run:false,paused:false,over:false,limit:opts.limit!==undefined?opts.limit:tl,title:opts.title||sel.t,tw:opts.tw||tw,ms:{},keys:{},cnt:false,mode:opts.mode||mode,chk:opts.chk||null,gid:opts.gid||null};
+$("#s-type").innerHTML=`<div class="row hidefm" style="justify-content:space-between"><h3 class="big" style="font-size:24px">SHIV YOGI TYPING</h3><div class="row"><button class="btn sec" id="bp">⏸ Pause</button><button class="btn sec" id="br">↻ Restart</button><button class="btn sec" id="bf">🎯 Focus</button><button class="btn sec" id="bs">⛶ Fullscreen</button><button class="btn sec" id="be">✕ Exit</button></div></div>
+<div class="row" style="justify-content:center;margin:14px 0" id="pills">${[["tg","Target"],["wp","WPM"],["gw","Gross"],["ac","Accuracy"],["er","Errors"],["ok","Correct"],["pr","Progress"],["ti","Time"]].map(p=>`<div class="glass pill ${["gw","ok","tg","pr","er"].includes(p[0])?"hidefm":""}">${p[1]} <b id="p-${p[0]}">0</b></div>`).join("")}</div>
+<div class="glass" style="position:relative"><div id="txt" tabindex="0" aria-label="Typing text"></div></div><div class="bar hidefm" style="margin-top:14px"><i id="pbar" style="width:0"></i></div><p class="hidefm" style="text-align:center;opacity:.55;margin-top:14px;font-size:13px">Start typing to begin · Esc = pause · Tab+Enter = restart · F = focus (when paused)</p>`;
+$("#txt").innerHTML=[...rt].map((c,i)=>`<span data-i="${i}">${c===" "?" ":c.replace("<","&lt;")}</span>`).join("");
+sess.el=[...$("#txt").children];sess.el[0].classList.add("cur");$("#txt").classList.toggle("focus",document.body.classList.contains("fm"));
+$("#p-tg").textContent=sess.tw;$("#p-ti").textContent=sess.limit?fmt(sess.limit):"0:00";
+$("#bp").onclick=()=>pause();$("#br").onclick=()=>begin(text,opts);$("#bf").onclick=focusM;$("#bs").onclick=fs;$("#be").onclick=()=>{sess=null;go("practice")};
+$$(".screen").forEach(s=>s.classList.toggle("on",s.id==="s-type"));cur="type";countdown(()=>{SND.go();sess.run=true;sess.t0=performance.now();sess.tick=setInterval(tick,200)},"Get Ready")}
+function countdown(cb,label){const o=$("#ov");sess.cnt=true;let n=3;o.classList.add("on");const step=()=>{if(!sess||!sess.cnt)return;if(n>0){o.innerHTML=`<div style="font-size:16px;letter-spacing:.3em;opacity:.7">${label}</div><div class="cd">${n}</div>`;SND.cd();n--;setTimeout(step,800)}else{o.innerHTML='<div class="cd">GO!</div>';setTimeout(()=>{o.classList.remove("on");sess&&(sess.cnt=false);cb()},500)}};step()}
+function elapsed(){return sess.paused||!sess.run?(sess.frozen||0):(performance.now()-sess.t0)/1000}
+function stats(){const e=Math.max(elapsed(),.001),m=e/60;const gross=sess.tot/5/m,net=sess.ok/5/m;return{gross:sess.tot?gross:0,net:sess.tot?net:0,acc:sess.tot?sess.ok/sess.tot*100:100,e,cpm:sess.ok/m}}
+function put(id,v){const el=$("#p-"+id);if(el&&el.textContent!=v){el.textContent=v;el.classList.remove("bump");void el.offsetWidth;el.classList.add("bump")}}
+function tick(){if(!sess||!sess.run||sess.paused)return;const s=stats();sess.frozen=s.e;put("wp",s.net.toFixed(0));put("gw",s.gross.toFixed(0));put("ac",s.acc.toFixed(1)+"%");put("er",sess.bad);put("ok",sess.ok);put("pr",Math.round(sess.i/sess.text.length*100)+"%");put("ti",sess.limit?fmt(Math.max(0,sess.limit-s.e)):fmt(s.e));$("#pbar").style.width=sess.i/sess.text.length*100+"%";if(sess.limit&&s.e>=sess.limit)finish()}
+function pause(){if(!sess||!sess.run||sess.paused||sess.over)return;sess.frozen=(performance.now()-sess.t0)/1000;sess.paused=true;$("#txt").classList.add("paused");const o=$("#ov");o.classList.add("on");o.innerHTML=`<div>PAUSED</div><div class="row" style="font-size:16px"><button class="btn" id="rs">▶ Resume</button><button class="btn sec" id="rt">↻ Restart</button></div>`;$("#rs").onclick=resume;$("#rt").onclick=()=>begin(sess.text);SND.pause();toast("Test Paused")}
+function resume(){if(!sess||!sess.paused)return;countdown(()=>{sess.t0=performance.now()-sess.frozen*1e3;sess.paused=false;$("#txt").classList.remove("paused");SND.go()},"Resuming")}
+document.addEventListener("keydown",e=>{
+if(!sess||cur!=="type"||sess.over)return;const k=e.key;
+if(sess.cnt)return;
+if(k==="Escape"){e.preventDefault();pause();return}
+if(sess.paused){if(k===" "||k==="Enter"){e.preventDefault();resume()}else if(k.toLowerCase()==="f")focusM();else if(k.toLowerCase()==="r")begin(sess.text);return}
+if(!sess.run||e.ctrlKey||e.metaKey||e.altKey||k.length!==1)return;
+e.preventDefault();const exp=sess.text[sess.i],sp=sess.el[sess.i];sess.tot++;
+const ks=sess.keys[exp]||(sess.keys[exp]={t:0,e:0});ks.t++;
+if(k===exp){sess.ok++;sess.i++;sp.classList.remove("cur");sp.classList.add("ok");SND.ok();if(sess.el[sess.i]){sess.el[sess.i].classList.add("cur");const n=sess.el[sess.i];if(n.offsetTop-sess.el[0].offsetTop>0)$("#txt").scrollTop=Math.max(0,n.offsetTop-$("#txt").offsetTop-120)}if(sess.i>=sess.text.length){tick();finish()}}
+else{sess.bad++;ks.e++;sp.classList.remove("bad");void sp.offsetWidth;sp.classList.add("bad");SND.bad();if(sess.mode==="Error-Free Mode"){toast("Error! Restarting…");setTimeout(()=>begin(sess.text),300)}}
+},{passive:false});
+document.addEventListener("keydown",e=>{if(cur==="type"&&sess&&sess.run&&!sess.over&&e.key==="Tab")e.preventDefault()});
+addEventListener("beforeunload",e=>{if(sess&&sess.run&&!sess.over){e.preventDefault();e.returnValue=""}});
+addEventListener("blur",()=>{if(sess&&sess.run&&!sess.paused&&!sess.over)pause()});
+function focusM(){document.body.classList.toggle("fm");const t=$("#txt");t&&t.classList.toggle("focus",document.body.classList.contains("fm"))}
+function fs(){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}catch(e){toast("Fullscreen not available")}}
+/* ===== FINISH / RESULT ===== */
+function finish(){if(!sess||sess.over)return;clearInterval(sess.tick);sess.over=true;const s=stats(),t=D.tests;const prevBest=Math.max(0,...t.map(x=>x.net)),prevAvg=avg(t.map(x=>x.net));
+const rec={title:sess.title,net:s.net,gross:s.gross,acc:s.acc,err:sess.bad,ok:sess.ok,chars:sess.tot,time:s.e,at:Date.now(),tw:sess.tw,cpm:s.cpm,words:Math.floor(sess.ok/5)};
+if(sess.tot>=5){t.push(rec);if(t.length>500)t.shift();for(const c in sess.keys){const k=D.keys[c]||(D.keys[c]={t:0,e:0});k.t+=sess.keys[c].t;k.e+=sess.keys[c].e}
+const td=day();if(!D.days.includes(td))D.days.push(td);
+let xp=Math.round(sess.ok/5+s.net/2+(s.acc>=95?20:0)+(s.net>=sess.tw?30:0));const l0=lvl().l;
+if(sess.gid&&D.daily!==td&&s.net>=sess.chk.w&&s.acc>=sess.chk.a){D.daily=td;xp+=100;toast("Daily Challenge Complete! +100 XP")}
+if(sess.lesson!==undefined&&s.acc>=90&&!D.lessons.includes(sess.lesson)){D.lessons.push(sess.lesson);xp+=50;toast("Lesson completed!")}
+D.xp+=xp;rec.xp=xp;const nl=lvl().l;if(nl>l0)setTimeout(()=>toast("⬆️ LEVEL UP! Level "+nl),900);
+ACH.forEach(a=>{if(!D.ach.includes(a[0])&&a[3](D)){D.ach.push(a[0]);D.xp+=25;setTimeout(()=>{toast("Achievement Unlocked! 🎉 "+a[0]);SND.ach()},1500)}});save()}
+const nb=sess.tot>=5&&s.net>prevBest&&t.length>1;$("#ov").classList.remove("on");
+$("#s-result").innerHTML=`<div style="text-align:center"><h1 class="big" style="animation:in 1s">TEST COMPLETE</h1>${nb?'<h2 style="margin:10px;color:var(--a4);animation:in 1.4s">NEW PERSONAL BEST 🏆</h2>':""}</div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:20px 0">${[["WPM",s.net,1],["Gross WPM",s.gross,1],["Net WPM",s.net,1],["Accuracy %",s.acc,1],["Errors",sess.bad,0],["Correct Chars",sess.ok,0],["Time (s)",s.e,1],["CPM",s.cpm,0]].map(x=>`<div class="glass stat"><b class="cu" data-to="${x[1]}" data-d="${x[2]}">0</b><span>${x[0]}</span></div>`).join("")}</div>
+<div class="glass pad"><p>Personal Best: <b>${Math.max(prevBest,s.net).toFixed(1)}</b> · Previous Best: <b>${prevBest.toFixed(1)}</b> · Average: <b>${avg(D.tests.map(x=>x.net)).toFixed(1)}</b> · Improvement vs avg: <b style="color:${s.net>=prevAvg?"var(--a4)":"var(--a3)"}">${(s.net-prevAvg>=0?"+":"")+(s.net-prevAvg).toFixed(1)}</b> · Target ${sess.tw}: ${s.net>=sess.tw?"✅ reached":"not yet"}</p></div>
+<div class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="ra">Try Again</button><button class="btn sec" onclick="go('practice')">Change Paragraph</button><button class="btn sec" onclick="go('home')">Home</button><button class="btn sec" onclick="go('progress')">View Statistics</button></div>`;
+const txt=sess.text,op={rt:txt,limit:sess.limit,title:sess.title,tw:sess.tw,mode:sess.mode,chk:sess.chk,gid:sess.gid};$("#ra").onclick=()=>begin(txt,op);
+$$(".screen").forEach(x=>x.classList.toggle("on",x.id==="s-result"));cur="result";document.body.classList.remove("fm");
+$$(".cu").forEach(el=>count(el,+el.dataset.to,+el.dataset.d));SND.done();if(nb){confetti();toast("New Personal Best! 🏆");}sess.run=false}
+/* ===== PROGRESS ===== */
+function chart(id,data,color,max){const c=document.getElementById(id);if(!c)return;const w=c.width=c.clientWidth*2,h=c.height=340,x=c.getContext("2d");x.clearRect(0,0,w,h);if(!data.length){x.fillStyle="#fff8";x.font="28px sans-serif";x.fillText("No data yet",20,60);return}
+const m=max||Math.max(...data,1)*1.15,bw=w/Math.max(data.length,10);x.fillStyle=color;data.forEach((v,i)=>{const bh=v/m*(h-30);x.globalAlpha=.85;x.beginPath();x.roundRect?x.roundRect(i*bw+4,h-bh,bw-8,bh,8):x.rect(i*bw+4,h-bh,bw-8,bh);x.fill()});x.globalAlpha=1}
+function progress(){const t=D.tests,ks=Object.entries(D.keys).filter(([c,k])=>k.t>=3&&/\S/.test(c)).map(([c,k])=>[c,k.e/k.t*100,k.e]).sort((a,b)=>b[1]-a[1]).slice(0,8);
+const act=n=>Array.from({length:n},(_,i)=>{const d=day(Date.now()-(n-1-i)*864e5);return t.filter(x=>day(x.at)===d).length});
+$("#s-progress").innerHTML=`<h1 class="big">Progress</h1><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:16px 0">${[["Best WPM",Math.max(0,...t.map(x=>x.net)).toFixed(1)],["Avg WPM",avg(t.map(x=>x.net)).toFixed(1)],["Best Accuracy",Math.max(0,...t.map(x=>x.acc)).toFixed(1)+"%"],["Avg Accuracy",avg(t.map(x=>x.acc)).toFixed(1)+"%"],["Tests",t.length],["Typing Time",fmt(t.reduce((a,x)=>a+x.time,0))],["Characters",t.reduce((a,x)=>a+x.chars,0)],["Errors",t.reduce((a,x)=>a+x.err,0)],["Lessons",D.lessons.length+"/12"]].map(x=>`<div class="glass stat"><b>${x[1]}</b><span>${x[0]}</span></div>`).join("")}</div>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"><div class="glass pad"><h3>WPM history</h3><canvas class="ch" id="c1"></canvas></div><div class="glass pad"><h3>Accuracy history</h3><canvas class="ch" id="c2"></canvas></div><div class="glass pad"><h3>Daily activity (14 days)</h3><canvas class="ch" id="c3"></canvas></div><div class="glass pad"><h3>Weekly activity (8 weeks)</h3><canvas class="ch" id="c4"></canvas></div></div>
+<div class="glass pad" style="margin-top:16px"><h3>🔥 Streak: ${streak()} days</h3><div class="row" style="margin:10px 0">${Array.from({length:28},(_,i)=>{const d=day(Date.now()-(27-i)*864e5);return `<span title="${d}" style="width:22px;height:22px;border-radius:6px;background:${D.days.includes(d)?"var(--a4)":"rgba(255,255,255,.1)"}"></span>`}).join("")}</div></div>
+<div class="glass pad" style="margin-top:16px"><h3>Weak Keys</h3>${ks.length?`<p style="margin:10px 0">${ks.map(k=>`<b style="font-size:22px;color:var(--a3)">${k[0]}</b> <span class="tag">${k[1].toFixed(0)}% err</span>`).join(" ")}</p><button class="btn" id="wk">Practice Weak Keys</button>`:"<p style='opacity:.6'>Complete tests to discover weak keys.</p>"}</div>`;
+chart("c1",t.slice(-30).map(x=>x.net),"#20C9FF");chart("c2",t.slice(-30).map(x=>x.acc),"#72F6D4",100);chart("c3",act(14),"#765CFF");chart("c4",Array.from({length:8},(_,w)=>act(56).slice(w*7,w*7+7).reduce((a,b)=>a+b,0)),"#FF4FA3");
+const w=$("#wk");if(w)w.onclick=()=>{const chars=ks.map(k=>k[0]).join("").replace(/[^\w.,;'!?-]/g,"");if(!chars){toast("No practice keys found");return}let s=[];for(let i=0;i<40;i++){let wd="";for(let j=0;j<3+Math.random()*3;j++)wd+=chars[Math.random()*chars.length|0]+"aeiou"[Math.random()*5|0];s.push(wd)}sel={ic:"🎯",t:"Weak Keys",tx:s.join(" ")};go("wpm")}}
+/* ===== ACHIEVEMENTS / DAILY / LEARN / SETTINGS ===== */
+function ach(){$("#s-ach").innerHTML=`<h1 class="big">Achievements</h1><p style="opacity:.7;margin:8px 0">${D.ach.length}/${ACH.length} unlocked</p><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(170px,1fr))">${ACH.map(a=>`<div class="glass ach ${D.ach.includes(a[0])?"":"lock"}"><div>${D.ach.includes(a[0])?a[1]:"🔒"}</div><b>${a[0]}</b><p style="font-size:12px;opacity:.7">${a[2]}</p></div>`).join("")}</div>`}
+function dailyC(){const d=new Date().getDate()+new Date().getMonth()*31;const w=[20,30,40,50,60,70,80][d%7];return{w,a:95,tm:60,p:P[d%P.length]}}
+function daily(){const c=dailyC(),done=D.daily===day();$("#s-daily").innerHTML=`<h1 class="big">Daily Challenge</h1><div class="glass pad" style="margin-top:16px;text-align:center"><p style="letter-spacing:.2em;opacity:.7">TARGET</p><h2>${c.w} WPM</h2><p style="margin-top:10px">Accuracy ≥ ${c.a}% · Time ${c.tm} sec · Reward +100 XP</p><p style="margin:10px;opacity:.7">${c.p.ic} ${c.p.t}</p>${done?'<h3 style="color:var(--a4)">✅ Completed today!</h3>':""}<button class="btn" id="dg">${done?"Play again":"Start Challenge"}</button></div>`;$("#dg").onclick=()=>{sel=c.p;begin(c.p.tx,{limit:c.tm,tw:c.w,gid:1,chk:{w:c.w,a:c.a},mode:"Daily Challenge",title:"Daily: "+c.p.t})}}
+function learn(){$("#s-learn").innerHTML=`<h1 class="big">Learn</h1><div class="grid" style="margin-top:16px">${LESSONS.map((l,i)=>`<div class="glass card" tabindex="0" data-l="${i}"><h3>Lesson ${i+1}: ${l[0]}</h3><p style="opacity:.7;font-size:13px;margin:8px 0">${l[1].slice(0,50)}…</p><div class="bar"><i style="width:${D.lessons.includes(i)?100:0}%"></i></div><p class="tag" style="margin-top:8px">${D.lessons.includes(i)?"✅ Completed":"Reach 90% accuracy"}</p></div>`).join("")}</div>`;$$("#s-learn .card").forEach(c=>{const f=()=>{const i=+c.dataset.l;sel={t:"Lesson "+(i+1)};const tx=(LESSONS[i][1]+" ").repeat(i<9?4:1).trim();begin(tx,{limit:0,title:"Lesson: "+LESSONS[i][0],tw:30,mode:"Lesson"});sess.lesson=i};c.onclick=f;c.onkeydown=e=>e.key==="Enter"&&f()})}
+function settings(){const s=D.set,sl=(k,l,mn,mx,stp)=>`<label style="display:block;margin:10px 0">${l}: <b id="v-${k}">${s[k]}</b><br><input type="range" min="${mn}" max="${mx}" step="${stp}" value="${s[k]}" data-k="${k}" style="width:100%"></label>`,tg=(k,l)=>`<label style="margin-right:18px"><input type="checkbox" data-t="${k}" ${s[k]!==false?"checked":""}> ${l}</label>`;
+$("#s-settings").innerHTML=`<h1 class="big">Settings</h1><div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:16px"><div class="glass pad"><h3>Appearance</h3>Theme <select id="th">${Object.keys(THEMES).map(t=>`<option ${t===s.theme?"selected":""}>${t}</option>`).join("")}</select>${sl("blur","Glass Blur",0,50,1)}${sl("op","Glass Opacity",2,30,1)}${sl("fs","Text Size",18,52,1)}${sl("ls","Letter Spacing",0,6,.5)}${tg("reduced","Reduced Motion")}</div>
+<div class="glass pad"><h3>Wallpaper</h3>${tg("wall","Wallpaper")}${tg("aurora","Aurora")}${tg("part","Particles")}${tg("orbs","Light Orbs")}${tg("par","Mouse Parallax")}${sl("spd","Wallpaper Speed",.2,3,.1)}${sl("bright","Wallpaper Brightness",.2,1.5,.1)}${sl("pd","Particle Density",0,3,.25)}</div>
+<div class="glass pad"><h3>Sound</h3>${tg("snd","Sound effects")}${sl("vol","Volume",0,1,.05)}<h3 style="margin-top:14px">Shortcuts</h3><p style="font-size:13px;opacity:.8;line-height:1.7">Esc — pause · Space/Enter — resume · F — focus mode (when paused) · R — restart (when paused) · Tab — disabled while typing · F11 — browser fullscreen</p><button class="btn sec" id="rst" style="margin-top:10px">Reset all data</button></div></div>`;
+$$("#s-settings input[type=range]").forEach(i=>i.oninput=()=>{s[i.dataset.k]=+i.value;$("#v-"+i.dataset.k).textContent=i.value;if(i.dataset.k==="pd")initP();apply();save()});
+$$("#s-settings input[type=checkbox]").forEach(i=>i.onchange=()=>{s[i.dataset.t]=i.checked;if(i.dataset.t==="part")initP();apply();save()});$("#th").onchange=e=>{s.theme=e.target.value;apply();save()};
+$("#rst").onclick=()=>{if(confirm("Delete ALL saved progress?")){try{localStorage.removeItem("syt")}catch(e){}location.reload()}}}
+/* ===== INIT ===== */
+$("#go").onclick=nameOk;$("#nm").onkeydown=e=>{if(e.key==="Enter")nameOk()};
+apply();rs();frame();
+if(D.name){$("#s-name").classList.remove("on");start()}else $("#nm").focus();
+</script></body></html>
